@@ -12,11 +12,11 @@ $data = urq::instance("urq.json");
 
 try {
     $record = $data->request();
+    $response->row = $record->fetchAll(PDO::FETCH_ASSOC);
+
 }
 catch (PDOException $err) {
     $response->error = $err->getMessage();
 }
-
-$response->row = $record->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($response);
