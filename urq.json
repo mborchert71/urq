@@ -1,0 +1,28 @@
+{
+    "dsn" : "sqlite:sqlite3-test",
+    "query": {
+        "select": "select :columns: from :table: :where: :group: :having: :order: :limit: :offset:",
+        "create": "create table :table:(id integer Primary Key autoincrement,created text default (datetime('now')),value blob )",
+        "insert": "insert into :table:(value)values(:value)",
+        "delete": "delete from :table: where id = :id",
+        "update": "update :table: value= :value where id = :id"
+    },
+    "short_key": {
+        "s:": "select",
+        "f:": "from",
+        "t:": "table",
+        "w:": "where",
+        "h:": "having",
+        "g:": "group",
+        "b:": "order",
+        "l:": "limit",
+        "o:": "offset",
+        "c:": "columns",
+        "v:": "values",
+        "n:": "name",
+        "u:": "update",
+        "d:": "delete",
+        "i:": "insert",
+        "p:": "process"
+    }
+}
