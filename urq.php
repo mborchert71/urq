@@ -51,7 +51,21 @@ class urq extends pdo {
         //where , having
         //group
         //columns
-        //column    
+        //column
+        if (array_key_exists("column", $req)) {
+            if (!is_array($req["column"])) {
+                throw new Exception("request-key column is not an assoc array");
+            }
+            $_ = "";
+            foreach ($req["column"] as $key => $val) {
+                if (!preg_match("/^[\w]{1,63}$/", $key)) {
+                    throw new Exception("request-key in column is not valid: \"$key\"");
+                }
+                $_.="$key=:col_$key,";
+                $_REQUEST["col_$key"] = $val;
+            }
+            $_REQUEST["column"]= substr($_,0,strlen($_)-1);
+        }
         return $this->request;
     }
 
@@ -91,7 +105,7 @@ class urq extends pdo {
         $req = $this->request_prepare();
 
         $cmd = $this->request_query();
-
+print $cmd;
         $query = $this->prepare($cmd);
 
         foreach ($req as $key => $value) {
