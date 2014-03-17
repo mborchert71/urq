@@ -12,10 +12,13 @@ $data = urq::instance("urq.json");
 
 try {
     $record = $data->request();
-    $response->row = $record->fetchAll(PDO::FETCH_ASSOC);
-
+    $response->rows = $record->fetchAll(PDO::FETCH_ASSOC);
+    $response->insert_id = $data->lastInsertId();
 }
 catch (PDOException $err) {
+    $response->error = $err->getMessage();
+}
+catch (Exception $err) {
     $response->error = $err->getMessage();
 }
 

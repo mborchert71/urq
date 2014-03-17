@@ -5,7 +5,9 @@
         "create": "create table :table:(id integer Primary Key autoincrement,created text default (datetime('now')),value blob )",
         "insert": "insert into :table:(value)values(:value)",
         "delete": "delete from :table: where id = :id",
-        "update": "update :table: set :column: where id = :id"
+        "update": "update :table: set value=:value where id=:id",
+        "update2": "update :table: set :column: where id = :id",
+        "insert2": "insert into :table:(:columns:)values(:values:)"
     },
     "short_key": {
         "s:": "select",

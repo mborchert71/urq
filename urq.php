@@ -38,9 +38,6 @@ class urq extends pdo {
             }
         }
 
-        if (!array_key_exists("columns", $req)) {
-            $req["columns"] = "*";
-        }
         if (array_key_exists("limit", $req)) {
             $req["limit"] = "limit " . intval($req["limit"]);
         }
@@ -51,6 +48,31 @@ class urq extends pdo {
         //where , having
         //group
         //columns
+        if (array_key_exists("columns", $req)) {
+            if (!is_array($req["columns"])) {
+                throw new Exception("request-key column is not an array");
+            }
+            foreach ($req["columns"] as $key) {
+                if (!preg_match("/^[\w]{1,63}$/", $key)) {
+                    throw new Exception("request-key in columns is not valid: \"$key\"");
+                }
+            }
+            $_REQUEST["columns"]= implode(",",$_REQUEST["columns"]);
+        }else{
+            $req["columns"] = "*";
+        }
+        //values
+        if (array_key_exists("values", $req)) {
+            if (!is_array($req["values"])) {
+                throw new Exception("request-key values is not an assoc array");
+            }
+            $_ = "";
+            foreach ($req["values"] as $key => $val) {
+                $_.=":col_$key,";
+                $_REQUEST["col_$key"] = $val;
+            }
+            $_REQUEST["values"]= substr($_,0,strlen($_)-1);
+        }
         //column
         if (array_key_exists("column", $req)) {
             if (!is_array($req["column"])) {
@@ -105,11 +127,11 @@ class urq extends pdo {
         $req = $this->request_prepare();
 
         $cmd = $this->request_query();
-print $cmd;
+
         $query = $this->prepare($cmd);
 
         foreach ($req as $key => $value) {
-            if (preg_match("/:" . $key . "[^\\w:]/", $cmd)) {
+            if (preg_match("/:" . $key . "[^\\w:]?/", $cmd)) {
                 $query->bindParam($key, $req[$key]);
                 unset($req[$key]);
             }
