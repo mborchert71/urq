@@ -2,7 +2,6 @@
 
 include "urq.php";
 
-$data = urq::instance("urq.json");
 
 /* create table
 $_REQUEST["process"] = "create";
@@ -29,6 +28,8 @@ $_REQUEST["process"] = "select";
 $_REQUEST["table"] = "test";
 $_REQUEST["limit"] = 1;
 $_REQUEST["offset"] = 1;
+
+$data = urq::my($_REQUEST);
 
 $record = $data->request();
 print_r($record->fetchAll(PDO::FETCH_ASSOC));

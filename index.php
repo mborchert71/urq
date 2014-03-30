@@ -3,15 +3,15 @@
 $response = new stdClass();
 
 if (!array_key_exists("table", $_REQUEST)) {
-    die('{ "error" : "no request data" }');
+    die('{ "error" : "no request data\n<br>try:  ?table=test" }');
 }
 
 include "urq.php";
 
-$data = urq::instance("urq.json");
+$data = urq::my($_REQUEST);
 
 try {
-    $record = $data->request();
+    $record = $data->request($_REQUEST);
     $response->rows = $record->fetchAll(PDO::FETCH_ASSOC);
     $response->insert_id = $data->lastInsertId();
 }

@@ -10,21 +10,22 @@
         "insert2": "insert into :table:(:columns:)values(:values:)"
     },
     "short_key": {
-        "s:": "select",
-        "f:": "from",
-        "t:": "table",
-        "w:": "where",
-        "h:": "having",
-        "g:": "group",
-        "b:": "order",
-        "l:": "limit",
-        "o:": "offset",
-        "c:": "columns",
-        "v:": "values",
-        "n:": "name",
-        "u:": "update",
-        "d:": "delete",
-        "i:": "insert",
-        "p:": "process"
+        "b": "order",
+        "c": "columns",
+        "d": "delete",
+        "cv": "colval",
+        "f": "from",
+        "g": "group",
+        "h": "having",
+        "i": "insert",
+        "l": "limit",
+        "n": "name",
+        "o": "offset",
+        "p": "process",
+        "s": "select",
+        "t": "table",
+        "u": "update",
+        "v": "values",
+        "w": "where"
     }
 }
